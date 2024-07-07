@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', authMiddleware, async (req, res) => {
     try {
-      const userId = req.user.id; // JWT should contain the user ID as 'id'
+      const userId = req.user.id; 
       console.log('User ID:', userId); // Debug log
   
       const notes = await Note.find({ userId });
@@ -21,15 +21,7 @@ router.get('/', authMiddleware, async (req, res) => {
     }
   });
 
-// router.get('/', authMiddleware, async (req, res) =>{
-//     try{
-//         const notes = await Note.find({ user: req.user.id});
-//         res.status(200).json(notes);
-//     }
-//     catch(err){
-//         res.status(500).json({message: 'Server error', error: err.message});
-//     }
-// });
+
 
 // Add new note
 
@@ -76,44 +68,27 @@ router.put('/:id', async (req, res) => {
     }
   });
 
-// router.put('/:id', authMiddleware, async (req, res) => {
-//     try{
-//         const {title, content} = req.body;
-//         const note = await Note.findOneAndUpdate(
-//             {_id: req.params.id, user: req.user.id},
-//             {title, content},
-//             {new: true}
-//         );
 
-//         if(!note){
-//             return res.status(404).json({message: 'Note not found'});
-//         }
-
-//         res.status(200).json({message: 'Note updated successfully', note});
-//     }
-//     catch(err){
-//         res.status(500).json({message: 'Server error', error: err.message});
-//     }
-// });
+// delete a Note
 
 router.delete('/:id', async (req, res) => {
     try {
       const noteId = req.params.id;
   
-      // Check if noteId is defined
+     
       if (!noteId) {
         return res.status(400).json({ message: 'Note ID is required' });
       }
   
-      // Find the note by ID and delete it
+      
       const deletedNote = await Note.findByIdAndDelete(noteId);
   
-      // If no note is found, return an error
+     
       if (!deletedNote) {
         return res.status(404).json({ message: 'Note not found' });
       }
   
-      // Send success response
+     
       res.json({ message: 'Note deleted successfully' });
     } catch (error) {
       console.error(error);
