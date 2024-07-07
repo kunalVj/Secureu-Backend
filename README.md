@@ -81,3 +81,7 @@ Make sure you have the following installed:
   ```bash
   POST "/api/auth/logout"
   ```
+## API Documentation
+```bash
+https://shorturl.at/fs3hT
+```
